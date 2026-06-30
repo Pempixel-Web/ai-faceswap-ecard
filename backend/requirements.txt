@@ -1,1 +1,9 @@
 runpod
+fastapi
+uvicorn
+requests
+pillow
+numpy
+opencv-python-headless
+onnxruntime
+insightface
