@@ -1,8 +1,6 @@
-from handler import handler
 import runpod
+from handler import handler
 
-runpod.serverless.start(
-    {
-        "handler": handler
-    }
-)
+runpod.serverless.start({
+    "handler": handler
+})
