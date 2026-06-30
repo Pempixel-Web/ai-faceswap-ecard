@@ -23,16 +23,14 @@ def encode_image(path):
 
 
 def face_swap(source_path, target_path, output_path):
-    command = [
-        "python",
-        "facefusion/facefusion.py",
-        "-s",
-        source_path,
-        "-t",
-        target_path,
-        "-o",
-        output_path,
-    ]
+ command = [
+    "python",
+    "facefusion/facefusion.py",
+    "headless-run",
+    "-s", source_path,
+    "-t", target_path,
+    "-o", output_path
+]
 
     result = subprocess.run(
         command,
