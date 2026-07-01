@@ -21,16 +21,19 @@ def encode_image(path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode("utf-8")
 
+# Start here
 
 def face_swap(source_path, target_path, output_path):
- command = [
-    "python",
-    "facefusion/facefusion.py",
-    "headless-run",
-    "-s", source_path,
-    "-t", target_path,
-    "-o", output_path
-]
+    command = [
+        "python",
+        "/app/facefusion/facefusion.py",
+        # "facefusion/facefusion.py",
+        "headless-run",
+        "--source-paths", source_path,
+        "--target-path", target_path,
+        "--output-path", output_path,
+        "--processors", "face_swapper"
+    ]
 
     result = subprocess.run(
         command,
@@ -39,11 +42,45 @@ def face_swap(source_path, target_path, output_path):
         timeout=600
     )
 
-    if result.returncode != 0:
-        raise Exception(result.stderr)
+    print("STDOUT:")
+    print(result.stdout)
+
+    print("STDERR:")
+    print(result.stderr)
+
+if result.returncode != 0:
+    raise Exception(
+        f"Exit Code: {result.returncode}\n\n"
+        f"STDOUT:\n{result.stdout}\n\n"
+        f"STDERR:\n{result.stderr}"
+    )
+
+    # if result.returncode != 0:
+    #     raise Exception(result.stderr)
 
     return output_path
+# def face_swap(source_path, target_path, output_path):
+#  command = [
+#     "python",
+#     "facefusion/facefusion.py",
+#     "headless-run",
+#     "-s", source_path,
+#     "-t", target_path,
+#     "-o", output_path
+# ]
 
+#     result = subprocess.run(
+#         command,
+#         capture_output=True,
+#         text=True,
+#         timeout=600
+#     )
+
+#     if result.returncode != 0:
+#         raise Exception(result.stderr)
+
+#     return output_path
+# Here
 
 def handler(event):
     try:
